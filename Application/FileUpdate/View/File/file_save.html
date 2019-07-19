@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>列表页</title>
+    <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+    <style type="text/css">
+        .current{
+            display: inline;
+        }
+         .num{
+            padding: 10px;
+        }
+
+    </style>
+    <script type="text/javascript">
+    function yanzheng(){
+        var runForm=document.addForm;
+        if($.trim(runForm.file_type.value)==''){
+            alert('请填写文档类型！');
+            return false;
+        }
+        return true;
+    }
+    </script>
+
+</head>
+
+<body>
+
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li>首页</li>
+        <li>列表页</li>
+        <li><a href="javascript:window.history.back()">返回</a></li>
+    </ul>
+</div>
+
+<div class="rightinfo">
+    <div class="formtitle"><span>修改界面</span></div>
+    <form action="__SELF__" method="post" onsubmit="return yanzheng();" name="addForm">
+        <input type="hidden" name="id" value="<?php echo $data['id']; ?>" />
+
+        <ul class="forminfo">
+            <li><label>文档类型</label><input name="file_type" type="text" class="dfinput" value="<?php echo $data['file_type'];?>"/><font color="red">*</font></li>
+
+            <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认保存"/></li>
+        </ul>
+</form>
+
+</div>
+
+</body>
+
+</html>
+

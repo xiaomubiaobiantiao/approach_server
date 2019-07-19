@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>添加</title>
+    <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+    <js file="__PUBLIC__/js/jquery.js"/>
+    <style type="text/css">
+        .hide{
+            display: none;
+        }
+        .show{
+            display: block;
+        }
+    </style>
+    <script type="text/javascript">
+    function isEmpty(){
+        var runForm=document.addForm;
+        if($.trim(runForm.file_type.value)==''){
+            alert('请填写文件类型！');
+            return false;
+        }
+        return true;
+    }
+    </script>
+</head>
+
+<body>
+
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li>首页</li>
+        <li>表单</li>
+        <li><a href="javascript:window.history.back()">返回</a></li>
+    </ul>
+</div>
+
+<div class="formbody">
+
+    <div class="formtitle"><span>修改界面</span></div>
+<form method="post" action="__SELF__" name="addForm" onsubmit="return isEmpty()" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{$data['id']}"/>
+    <ul class="forminfo">
+        <li><label>系统类型</label></li>
+            <select name="pro_type" class="dfinput" disabled="disabled">
+            <?php foreach($p_data as $k=>$v):
+                if($v['id']==$data['pro_type'])
+                     $select='selected="selected"';
+                else
+                     $select='';
+            ?>
+                <option value="{$v['id']}" <?php echo $select;?>>{$v['pro_type']}</option>
+            <?php endforeach;?>
+            </select>
+
+        <li>
+            <label>接口类型</label>
+            <select name="inter_type" class="dfinput" id="selected" disabled="disabled">
+                <option value="POST" <?php if($data['inter_type']=='POST') echo "selected";?>>POST</option>
+                <option value="WebService" <?php if($data['inter_type']=='WebService') echo "selected";?>>WebService</option>
+                <option value="MQ" <?php if($data['inter_type']=='MQ')  echo "selected";?>>MQ</option>
+                <option value="数据库" <?php if($data['inter_type']=='数据库') echo "selected";?>>数据库</option>
+                <option value="其他" <?php if($data['inter_type']=='其他') echo "selected";?>>其他</option>
+            </select>
+        </li>
+        <li>
+            <label>接口名称</label>
+            <input type="text" name="inter_name" class="dfinput" value="{$data['inter_name']}">
+        </li>
+        <!--post-->
+        <div class="hide1 <?php if($data['inter_type']=='POST') echo 'show'; else echo 'hide';?>">
+            <li>
+                <label>post方法</label>
+                <select class="dfinput" name="post_func">
+                    <option value="请求" <?php if($data['post_func']=='请求')  echo "selected";?>>请求</option>
+                    <option value="推送" <?php if($data['post_func']=='推送')  echo "selected";?>>推送</option>
+                </select>
+            </li>
+            <li>
+                <label>URL</label>
+                <input type="text" name="url" class="dfinput" value="{$data['url']}">
+            </li>
+        </div>
+        <!--webservice-->
+        <div class="hide1 <?php if($data['inter_type']=='WebService') echo 'show'; else echo 'hide';?>">
+            <li>
+                <label>方法</label>
+                <select class="dfinput" name="func">
+                    <option value="请求" <?php if($data['func']=='请求')  echo "selected";?>>请求</option>
+                    <option value="推送" <?php if($data['func']=='推送')  echo "selected";?>>推送</option>
+                </select>
+            </li>
+            <li>
+                <label>WSDL</label>
+                <input type="text" name="wsdl" class="dfinput" value="{$data['wsdl']}">
+            </li>
+        </div>
+        <!--MQ-->
+        <div class="hide1 <?php if($data['inter_type']=='MQ') echo 'show'; else echo 'hide';?>">
+            <li>
+                <label>IP</label>
+                <input type="text" name="ip" class="dfinput" value="{$data['ip']}">
+            </li>
+            <li>
+                <label>端口号</label>
+                <input type="text" name="port" class="dfinput" value="{$data['port']}">
+            </li>
+            <li>
+                <label>CCSID</label>
+                <input type="text" name="ccsid" class="dfinput" value="{$data['ccsid']}">
+            </li>
+            <li>
+                <label>通道名</label>
+                <input type="text" name="road" class="dfinput" value="{$data['road']}">
+            </li>
+            <li>
+                <label>队列名称</label>
+                <input type="text" name="queue" class="dfinput" value="{$data['queue']}">
+            </li>
+        </div>
+
+        <!--数据库-->
+        <div class="hide1 <?php if($data['inter_type']=='数据库') echo 'show'; else echo 'hide';?>">
+            <li>
+                <label>数据库类型</label>
+                <select class="dfinput" name="base_type">
+                    <option value="Oracle" <?php if($data['base_type']=='Oracle')  echo "selected";?>>Oracle</option>
+                    <option value="SqlServer" <?php if($data['base_type']=='SqlServer')  echo "selected";?>>SqlServer</option>
+                    <option value="MySQL" <?php if($data['base_type']=='MySQL')  echo "selected";?>>MySQL</option>
+                </select>
+            </li>
+            <li>
+                <label>IP</label>
+                <input type="text" name="ip" class="dfinput" value="{$data['base_ip']}">
+            </li>
+            <li>
+                <label>端口号</label>
+                <input type="text" name="port" class="dfinput" value="{$data['base_port']}">
+            </li>
+            <li>
+                <label>数据库名</label>
+                <input type="text" name="base_name" class="dfinput" value="{$data['base_name']}">
+            </li>
+            <li>
+                <label>用户名</label>
+                <input type="text" name="username" class="dfinput" value="{$data['username']}">
+            </li>
+            <li>
+                <label>密码</label>
+                <input type="text" name="password" class="dfinput" value="{$data['password']}">
+            </li>
+        </div>
+
+    <!--其他-->
+        <div class="hide1 <?php if($data['inter_type']=='其他') echo 'show'; else echo 'hide';?>">
+            <li>
+                <textarea rows="1" cols="80" class="dfinput" name="other">{$data['other']}</textarea>
+            </li>
+        </div>
+
+        <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认保存"/></li>
+    </ul>
+</form>
+</div>
+</body>
+</html>
+<script>
+    $("#selected").change(function(){
+        $("#selected option").each(function(i,o){
+            if($(this).attr("selected")){
+                $(".hide1").hide();
+                $(".hide1").eq(i).show();
+            }
+        });
+    });
+</script>

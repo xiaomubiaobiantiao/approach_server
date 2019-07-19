@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>列表页</title>
+    <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+    <style type="text/css">
+        .current{
+            display: inline;
+        }
+        .num{
+            padding: 10px;
+        }
+
+    </style>
+    <script type="text/javascript">
+        function yanzheng(){
+            var flg=false;
+            $("input[name='delid[]']").each(function(){
+                if($(this).attr('checked')){
+                    flg=true;
+                    return 0;
+                }
+
+            });
+            if(!flg){
+                alert('请选择要删除的选项！');
+                return false;
+            }
+           return confirm('确定要删除吗？');
+            //return true;
+        }
+    </script>
+
+</head>
+
+
+<body>
+
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li>首页</li>
+        <li>列表页</li>
+        <li><a href="javascript:window.history.back()">返回</a></li>
+    </ul>
+</div>
+
+<div class="rightinfo">
+
+    <div class="tools">
+        <form action="__SELF__" method="GET" name="searchForm">
+            <img src="__PUBLIC__/Images/icon_search.gif" width="26" height="22" border="0" alt="search" />
+            日志内容：<input type="text" name="content" size="15" class='dfinput' value="<?php echo I('get.content'); ?>" />
+
+            <input type="submit" value=" 搜索 " class="btn" />
+            <ul class="toolbar" >
+                <li class="click"><span><img src="__PUBLIC__/images/t01.png" /></span><a href="__CONTROLLER__/daily_add">添加</a></li>
+            </ul>
+
+        </form>
+    </div>
+    <?php if($data){
+    foreach($data as $k=>$v){
+    ?>
+    <div style="width: 98%;height: auto;margin:8px;border:1px dotted  #919191;border-radius:8px;padding: 5px;">
+        <span>
+          <?php
+          $key_word=I('get.content');
+          $new_content= html_entity_decode($v['content']);
+          $n_content=str_replace($key_word, '<font color=red>'.$key_word.'</font>',$new_content);
+            echo $n_content;
+          ?>
+        </span>
+            <div style="margin-top: 5px;">
+                <span style="color:#919191;margin-left: 5px;" >上传者：{$v['author']}<font color="#919191" style="margin-right: 5px;margin-left: 10px;">上传时间：<?php echo date('Y-m-d',$v['create_time']);?></font><font color="#919191" style="margin-right: 5px;margin-left: 10px;">最后更新时间：<?php echo date('Y-m-d',$v['update_time']);?></font>
+                 <label style="float: right"> <a href="__CONTROLLER__/daily_save/id/{$v['id']}" style="margin-right: 5px;">编辑</a><a  onclick="return confirm('确定要删除吗？');" href="__CONTROLLER__/daily_delete/id/<?php echo $v['id']; ?>" style="margin-right: 5px;">删除</a></label></span>
+            </div>
+    </div>
+    <?php }}else{ ?>
+    <span style="margin-left: 30px;">没有数据</span>
+    <?php }?>
+    <div style="float: right">
+        {$page}
+    </div>
+</div>
+
+</body>
+
+</html>
+<script>
+    $("#selall").click(function(){
+        if($(this).attr("checked"))
+            $("input[name='delid[]']").attr("checked", "checked");
+        else
+            $("input[name='delid[]']").removeAttr("checked");
+    });
+</script>

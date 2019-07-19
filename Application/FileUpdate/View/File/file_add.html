@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>添加</title>
+    <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+    <js file="__PUBLIC__/js/jquery.js"/>
+    <script type="text/javascript">
+    function isEmpty(){
+        var runForm=document.addForm;
+        if($.trim(runForm.file_type.value)==''){
+            alert('请填写文件类型！');
+            return false;
+        }
+        return true;
+    }
+    </script>
+</head>
+
+<body>
+
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li>首页</li>
+        <li>表单</li>
+        <li><a href="javascript:window.history.back()">返回</a></li>
+    </ul>
+</div>
+
+<div class="formbody">
+
+    <div class="formtitle"><span>添加界面</span></div>
+<form method="post" action="__SELF__" name="addForm" onsubmit="return isEmpty()" enctype="multipart/form-data">
+    <ul class="forminfo">
+        <li><label>文件类型</label>
+            <select name="file_type" class="dfinput">
+            <?php foreach($file_type as $k=>$v):?>
+                <option value="{$v['id']}">{$v['file_type']}</option>
+            <?php endforeach;?>
+            </select>
+
+            <li>
+                <label>文档描述</label>
+                <textarea rows="1" cols="20" name="description" class="textinput" style="width: 400px;height: 20px;"></textarea>
+            </li>
+            <li>
+                <input type="file" name="file">
+            </li>
+                <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认保存"/></li>
+    </ul>
+</form>
+</div>
+</body>
+</html>

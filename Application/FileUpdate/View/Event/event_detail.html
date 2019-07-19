@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>添加</title>
+    <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+    <!-- 引入Ueditor -->
+    <js file='__PUBLIC__/Ueditor/ueditor.config.js'/>
+    <js file='__PUBLIC__/Ueditor/ueditor.all.min.js'/>
+    <!-- 更改编辑器的路径 -->
+    <script type="text/javascript">
+        //验证表单内容不能为空
+        function isEmpty(){
+            var runForm=document.addForm;
+            if($.trim(runForm.title.value)==''){
+                alert('日志标题不能为空！');
+                return false;
+            }
+            if($.trim(runForm.content.value)==''){
+                alert('日志内容不能为空！');
+                return false;
+            }
+            return true;
+        }
+
+        window.UEDITOR_HOME_URL='__ROOT__/Public/Ueditor/';
+        window.onload=function(){
+            // 更改编辑器的宽度
+            window.UEDITOR_CONFIG.initialFrameWidth=600;
+            // 更改编辑器的高度
+            window.UEDITOR_CONFIG.initialFrameHeight=300;
+            UE.getEditor('announce',{
+            　　toolbars:[
+            　　　　　　　　['fullscreen', 'source', '|', 'undo', 'redo', '|',
+                            'bold', 'forecolor',  'selectall', 'cleardoc', '|',
+                            'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+                            'customstyle', 'paragraph', 'fontfamily', 'fontsize',
+                             'indent', '|',
+                            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify',   '|',
+
+                        ]
+            　　 ]});
+
+        }
+    </script>
+
+</head>
+<style>
+    .line{
+        line-height: 10px;
+    }
+</style>
+
+<body>
+
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li>首页</li>
+        <li>表单</li>
+        <li><a href="javascript:window.history.back()">返回</a></li>
+    </ul>
+</div>
+
+<div class="formbody">
+
+    <div class="formtitle"><span>详情界面</span></div>
+<form method="post" action="__SELF__" name="addForm" onsubmit="return isEmpty()">
+    <ul class="forminfo">
+        <li ><label style="line-height: 15px;"><h1>大事迹时间:</h1></label>
+            <label style="line-height: 15px;">{$data['time']}</label>
+        <li>
+        <li style="margin-bottom: 40px;"><label style="line-height: 15px;"><h1>大事迹标题:</h1></label>
+            <label style="width: auto;line-height: 15px;" >{$data['title']}</label>
+        <li>
+            <!--<label>内容：</label><br/>-->
+            <?php echo html_entity_decode($data['content']);?>
+        </li>
+
+    </ul>
+
+</form>
+</div>
+</body>
+</html>

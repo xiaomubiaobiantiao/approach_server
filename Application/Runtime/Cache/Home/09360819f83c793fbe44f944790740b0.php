@@ -1,0 +1,101 @@
+<?php if (!defined('THINK_PATH')) exit();?>﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="/Public/css/style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="/Public/js/jquery.js"></script>
+
+<script type="text/javascript">
+$(function(){	
+	//导航切换
+	$(".menuson li").click(function(){
+		$(".menuson li.active").removeClass("active");
+		$(this).addClass("active");
+	});
+	
+	$('.title').click(function(){
+		var $ul = $(this).next('ul');
+		$('dd').find('ul').slideUp();
+		if($ul.is(':visible')){
+			$(this).next('ul').slideUp();
+		}else{
+			$(this).next('ul').slideDown();
+		}
+	});
+})	
+</script>
+
+
+</head>
+
+<body style="background:#f0f9fd;">
+	<div class="lefttop"><span></span>菜单列表</div>
+    
+    <dl class="leftmenu">
+        
+    <dd>
+    <div class="title">
+
+    <span><img src="/Public/images/leftico01.png" /></span>服务器信息
+    </div>
+        <ul class="menuson" style="display: block;">
+            <li><cite></cite><a href="<?php echo U('Applist/Index/server_add');?>" target='rightFrame'>服务器信息字段添加</a><i></i></li>
+
+            <li><cite></cite><a href="<?php echo U('Applist/Index/index');?>" target='rightFrame'>服务器信息列表</a><i></i></li>
+        </ul>
+    </dd>
+        
+    
+    <dd>
+    <div class="title">
+    <span><img src="/Public/images/leftico02.png" /></span>联系方式
+    </div>
+    <ul class="menuson" style="display: block;">
+        <li><cite></cite><a href="<?php echo U('Applist/Index/pro_type');?>" target='rightFrame'>厂家系统类型</a><i></i></li>
+        <li><cite></cite><a href="<?php echo U('Applist/Index/product');?>" target='rightFrame'>厂家信息</a><i></i></li>
+        <li><cite></cite><a href="<?php echo U('Applist/Index/hospital');?>" target='rightFrame'>医院信息</a><i></i></li>
+    </ul>     
+    </dd> 
+    
+    
+    <dd><div class="title"><span><img src="/Public/images/leftico03.png" /></span>接口信息</div>
+        <ul class="menuson" style="display: block;">
+            <li><cite></cite><a href="<?php echo U('Applist/Interface/interface_list');?>" target='rightFrame'>接口管理</a><i></i></li>
+        </ul>
+    </dd>  
+    
+    
+    <dd><div class="title"><span><img src="/Public/images/leftico04.png" /></span>参数设置</div>
+    </dd>   
+    <dd><div class="title"><span><img src="/Public/images/leftico04.png" /></span>文档管理</div>
+        <ul class="menuson" style="display: block;">
+            <li><cite></cite><a href="<?php echo U('Applist/File/file_type');?>" target='rightFrame'>文档类型</a><i></i></li>
+            <li><cite></cite><a href="<?php echo U('Applist/File/file_list');?>" target='rightFrame'>文件管理</a><i></i></li>
+
+        </ul>
+    </dd>   
+     <dd><div class="title"><span><img src="/Public/images/leftico04.png" /></span>实施日志</div>
+         <ul class="menuson" style="display: block;">
+             <li><cite></cite><a href="<?php echo U('Applist/Daily/daily_list');?>" target='rightFrame'>日志管理</a><i></i></li>
+         </ul>
+    </dd> 
+     <dd><div class="title"><span><img src="/Public/images/leftico04.png" /></span>项目大事记</div>
+         <ul class="menuson" style="display: block;">
+             <li><cite></cite><a href="<?php echo U('Applist/Event/event_list');?>" target='rightFrame'>项目大事记管理</a><i></i></li>
+         </ul>
+    </dd>
+    <dd>
+        <a href="http://localhost:8077/web_test1/verifysql/verify_main.php" target="_blank"><div class="title"><span><img src="/Public/images/leftico04.png" /></span>数据验证</div></a>
+    </dd>
+    <dd><div class="title"><span><img src="/Public/images/leftico04.png" /></span>软件更新</div>
+         <ul class="menuson" style="display: block;">
+             <li><cite></cite><a href="<?php echo U('FileUpdate/Index/index');?>" target='rightFrame'>实施更新</a><i></i></li>
+             <li><cite></cite><a href="<?php echo U('FileUpdate/Pack/index');?>" target='rightFrame'>更新包管理</a><i></i></li>
+         </ul>
+    </dd>
+
+    </dl>
+    
+</body>
+</html>

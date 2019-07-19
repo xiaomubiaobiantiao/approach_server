@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>列表页</title>
+    <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+    <style type="text/css">
+        .current{
+            display: inline;
+        }
+        .num{
+            padding: 10px;
+        }
+
+    </style>
+    <script type="text/javascript">
+        function yanzheng(){
+            var flg=false;
+            $("input[name='delid[]']").each(function(){
+                if($(this).attr('checked')){
+                    flg=true;
+                    return 0;
+                }
+
+            });
+            if(!flg){
+                alert('请选择要删除的选项！');
+                return false;
+            }
+           return confirm('确定要删除吗？');
+            //return true;
+        }
+    </script>
+
+</head>
+
+
+<body>
+
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li>首页</li>
+        <li>列表页</li>
+        <li><a href="javascript:window.history.back()">返回</a></li>
+    </ul>
+</div>
+
+<div class="rightinfo">
+
+    <div class="tools">
+        <form action="__SELF__" method="GET" name="searchForm">
+            <img src="__PUBLIC__/Images/icon_search.gif" width="26" height="22" border="0" alt="search" />
+            大事记标题：<input type="text" name="title" size="15" class='dfinput' value="<?php echo I('get.title'); ?>" />
+
+            <input type="submit" value=" 搜索 " class="btn" />
+        </form>
+        <ul class="toolbar" style="float: right;">
+            <li class="click"><span><img src="__PUBLIC__/images/t01.png" /></span><a href="__CONTROLLER__/event_add">添加</a></li>
+        </ul>
+
+    </div>
+    <form action="__CONTROLLER__/event_bdel" method="post" onsubmit="return yanzheng();">
+
+        <table class="tablelist">
+            <thead>
+            <tr>
+                <!--<th><input  type="checkbox" id="selall"/></th>-->
+                <!--<th>id</th>-->
+                <th>大事记时间</th>
+                <th>大事记标题</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($data as $k=>$v): ?>
+
+            <tr>
+                <!--<td>-->
+                    <!--<input name="delid[]" type="checkbox" value="<?php echo $v['id']; ?>" />-->
+                <!--</td>-->
+                <!--<td align="center"><?php echo $v['id']; ?></td>-->
+                <td ><?php echo $v['time']; ?></td>
+                <td>
+                    <?php
+                    $key=I('get.title');
+                    $con=str_replace($key,'<font color=red>'.$key.'</font>',$v['title']);
+                        echo $con;
+                  ?>
+                </td>
+
+                <td ><?php echo date('Y-m-d H:i',$v['update_time']);?></td>
+                <td >
+                    <!--<a href="__CONTROLLER__/event_detail/id/{$v['id']}" title="详情" class="tablelink">详情</a>-->
+                    <a href="#" title="详情" class="tablelink" id="{$v['id']}" onclick="showpage(this.id)">详情</a>
+                    <a href="__CONTROLLER__/event_save/id/{$v['id']}" title="编辑" class="tablelink">编辑</a>
+                    <a onclick="return confirm('确定要删除吗？');" href="__CONTROLLER__/event_delete/id/<?php echo $v['id']; ?>" title="移除" class="tablelink">移除</a>
+                </td>
+            </tr>
+            <?php endforeach;?>
+            </tbody>
+            <tr>
+                <!--<td><input type="submit" value="删除所选" /></td>-->
+                <td align="right"  colspan="11">
+                    <?php echo $page;?>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+</body>
+
+</html>
+<script>
+    $("#selall").click(function(){
+        if($(this).attr("checked"))
+            $("input[name='delid[]']").attr("checked", "checked");
+        else
+            $("input[name='delid[]']").removeAttr("checked");
+    });
+    function showpage(id){
+        //alert(id);
+        var iWidth =1000; //弹出窗口的宽度;
+        var iHeight = 600; //弹出窗口的高度;
+        var iTop = (window.screen.height-30-iHeight)/2;
+        var iLeft = (window.screen.width-10-iWidth)/2;
+        window.open("__CONTROLLER__/event_detail?id="+id,"",'height='+iHeight+',width='+iWidth+',top='+iTop+',left='+iLeft+',toolbar=no,menubar=no,scrollbars=no, resizable=yes,location=no, status=yes, modal=yes');
+    }
+</script>

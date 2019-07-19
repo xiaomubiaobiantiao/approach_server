@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>添加</title>
+    <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+    <js file="__PUBLIC__/js/jquery.js"/>
+    <style type="text/css">
+        .hide{
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+    function isEmpty(){
+        var runForm=document.addForm;
+        if($.trim(runForm.file_type.value)==''){
+            alert('请填写文件类型！');
+            return false;
+        }
+        return true;
+    }
+    </script>
+</head>
+
+<body>
+
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li>首页</li>
+        <li>表单</li>
+        <li><a href="javascript:window.history.back()">返回</a></li>
+    </ul>
+</div>
+
+<div class="formbody">
+
+    <div class="formtitle"><span>添加界面</span></div>
+<form method="post" action="__SELF__" name="addForm" onsubmit="return isEmpty()" enctype="multipart/form-data">
+    <ul class="forminfo">
+        <li><label>系统类型</label></li>
+            <select name="pro_type" class="dfinput">
+            <?php foreach($pro_type as $k=>$v):?>
+                <option value="{$v['id']}">{$v['pro_type']}</option>
+            <?php endforeach;?>
+            </select>
+
+        <li>
+            <label>接口类型</label>
+            <select name="inter_type" class="dfinput" id="selected">
+                <option value="POST">POST</option>
+                <option value="WebService">WebService</option>
+                <option value="MQ">MQ</option>
+                <option value="数据库">数据库</option>
+                <option value="其他">其他</option>
+            </select>
+        </li>
+        <li>
+            <label>接口名称</label>
+            <input type="text" name="inter_name" class="dfinput">
+        </li>
+        <!--post-->
+        <div class="hide1">
+            <li>
+                <label>post方法</label>
+                <select class="dfinput" name="post_func">
+                    <option value="请求">请求</option>
+                    <option value="推送">推送</option>
+                </select>
+            </li>
+            <li>
+                <label>URL</label>
+                <input type="text" name="url" class="dfinput">
+            </li>
+        </div>
+        <!--webservice-->
+        <div class="hide1 hide">
+            <li>
+                <label>方法</label>
+                <select class="dfinput" name="func">
+                    <option value="请求">请求</option>
+                    <option value="推送">推送</option>
+                </select>
+            </li>
+            <li>
+                <label>WSDL</label>
+                <input type="text" name="wsdl" class="dfinput">
+            </li>
+        </div>
+        <!--MQ-->
+        <div class="hide1 hide">
+            <li>
+                <label>IP</label>
+                <input type="text" name="ip" class="dfinput">
+            </li>
+            <li>
+                <label>端口号</label>
+                <input type="text" name="port" class="dfinput">
+            </li>
+            <li>
+                <label>CCSID</label>
+                <input type="text" name="ccsid" class="dfinput">
+            </li>
+            <li>
+                <label>通道名</label>
+                <input type="text" name="road" class="dfinput">
+            </li>
+            <li>
+                <label>队列名称</label>
+                <input type="text" name="queue" class="dfinput">
+            </li>
+        </div>
+
+        <!--数据库-->
+        <div class="hide1 hide">
+            <li>
+                <label>数据库类型</label>
+                <select class="dfinput" name="base_type">
+                    <option value="Oracle">Oracle</option>
+                    <option value="SqlServer">SqlServer</option>
+                    <option value="MySQL">MySQL</option>
+                </select>
+            </li>
+            <li>
+                <label>IP</label>
+                <input type="text" name="base_ip" class="dfinput">
+            </li>
+            <li>
+                <label>端口号</label>
+                <input type="text" name="base_port" class="dfinput">
+            </li>
+            <li>
+                <label>数据库名</label>
+                <input type="text" name="base_name" class="dfinput">
+            </li>
+            <li>
+                <label>用户名</label>
+                <input type="text" name="username" class="dfinput">
+            </li>
+            <li>
+                <label>密码</label>
+                <input type="text" name="password" class="dfinput">
+            </li>
+        </div>
+
+    <!--其他-->
+        <div class="hide1 hide">
+            <li>
+                <textarea rows="1" cols="80" class="dfinput" name="other"></textarea>
+            </li>
+        </div>
+
+        <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认保存"/></li>
+    </ul>
+</form>
+</div>
+</body>
+</html>
+<script>
+    $("#selected").change(function(){
+        $("#selected option").each(function(i,o){
+            if($(this).attr("selected")){
+                $(".hide1").hide();
+                $(".hide1").eq(i).show();
+            }
+        });
+    });
+</script>
